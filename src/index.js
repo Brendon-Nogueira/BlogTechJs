@@ -29,7 +29,7 @@ db.sequelize.authenticate()
   .then(() => {
     console.log('Tabelas sincronizadas com sucesso.')
 
-    app.listen(8088, () => console.log('Server is running on port 8088'))
+    app.listen(8088, () => console.log('Servidor express na porta 8088'))
   })
   .catch(err => {
     console.error('Erro ao conectar no banco de dados ou sincronizar tabelas:', err)
