@@ -17,19 +17,20 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false
         },
-        categoriaId: { 
+        fk_id_categoria: {  
             type: DataTypes.INTEGER,
+            allowNull: false,  
             references: {
-                model: 'Categorias',
+                model: 'Categoria',  
                 key: 'id'
             }
         }
     });
 
     Artigo.associate = (models) => {
-        Artigo.belongsTo(models.Categorias, {
-            foreignKey: 'categoriaId',
-            as: 'categoria'
+        Artigo.belongsTo(models.Categoria, {  
+            foreignKey: 'fk_id_categoria', 
+            as: 'categoria'  
         });
     };
 
