@@ -16,9 +16,22 @@ module.exports = (sequelize, DataTypes) => {
         conteudo: {
             type: DataTypes.TEXT,
             allowNull: false
+        },
+        categoriaId: { 
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'Categorias',
+                key: 'id'
+            }
         }
-
     });
+
+    Artigo.associate = (models) => {
+        Artigo.belongsTo(models.Categorias, {
+            foreignKey: 'categoriaId',
+            as: 'categoria'
+        });
+    };
 
     return Artigo;
 };
