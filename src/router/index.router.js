@@ -17,6 +17,8 @@ router.get('/admin/categorias/new',  (req, res) =>{
     res.render('admin/nova_categoria')
 })
 
+router.get('/admin/categorias/save', controllerCategorias.getTitulo)
+
 
 router.get('/artigos',  (req, res) =>{
     res.send('Rota de Artigos')
