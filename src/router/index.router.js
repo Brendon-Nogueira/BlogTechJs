@@ -14,7 +14,7 @@ router.get('/categorias',  (req, res) =>{
     res.send('Rota de Categorias')
 })
 router.get('/admin/categorias/new',  (req, res) =>{
-    res.send('Rota  Admin / Categorias')
+    res.render('admin/nova_categoria')
 })
 
 
