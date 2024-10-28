@@ -25,7 +25,16 @@ const createTitulo = async (titulo) => {
     }
 }
 
+const getAll = async () => {
+    try {
+        return await db.Categoria.findAll(); 
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
     getTitulo,
+    getAll,
     createTitulo
 }

@@ -13,7 +13,7 @@ const createTitulo = async (req, res) => {
 
             res.status(409).render('error')
             return
-            
+
         } else {
 
             const novaCategoria = await categoriaService.createTitulo(titulo)
@@ -26,8 +26,19 @@ const createTitulo = async (req, res) => {
     }
 }
 
+const getAll = async (req, res) => {
+    try {
+        const categorias = await categoriaService.getAll();
+        res.render('admin/categorias', { categorias }) 
+    } catch (error) {
+        console.error('Erro ao obter categorias:', error)
+        res.status(500).send('Erro interno no servidor')
+    }
+}
+
 module.exports = {
-    createTitulo  
+    createTitulo,
+    getAll 
 }
 
 

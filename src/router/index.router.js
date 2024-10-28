@@ -21,6 +21,9 @@ router.get('/admin/categorias/new', (req, res) => {
 // Rota para salvar uma nova categoria - Usa POST para criar no banco
 router.post('/categorias/save', controllerCategorias.createTitulo)
 
+router.get('/admin/categorias', controllerCategorias.getAll)
+
+
 // Rotas de artigos
 router.get('/artigos', (req, res) => {
     res.send('Rota de Artigos')
