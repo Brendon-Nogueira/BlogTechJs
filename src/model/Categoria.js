@@ -1,3 +1,5 @@
+const slugify = require('slugify')
+
 module.exports = (sequelize, DataTypes) => {
     const Categoria = sequelize.define('Categoria', {  
         id: {
@@ -13,14 +15,23 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         }
-    });
+    }, {
+        tableName: 'categorias'  
+    })
 
     Categoria.associate = (models) => {
         Categoria.hasMany(models.Artigo, {
             foreignKey: 'fk_id_categoria',  
             as: 'artigos'  
-        });
-    };
+        })
+    }
 
-    return Categoria;
-};
+    Categoria.beforeCreate((categoria) => {
+        categoria.slug = slugify(categoria.titulo, {
+            lower: true,
+            strict: true
+        })
+    })
+
+    return Categoria
+}

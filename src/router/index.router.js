@@ -5,27 +5,28 @@ const controllerArtigos = require('../controller/artigos/artigos.controller')
 
 
 router.get('/', (req, res) => {
-
     res.render('index')
 })
 
-
-router.get('/categorias',  (req, res) =>{
+// Rota de listagem de categorias
+router.get('/categorias', (req, res) => {
     res.send('Rota de Categorias')
 })
-router.get('/admin/categorias/new',  (req, res) =>{
+
+// Rota para exibir o formulário de criação de nova categoria
+router.get('/admin/categorias/new', (req, res) => {
     res.render('admin/nova_categoria')
 })
 
-router.get('/admin/categorias/save', controllerCategorias.getTitulo)
+// Rota para salvar uma nova categoria - Usa POST para criar no banco
+router.post('/categorias/save', controllerCategorias.createTitulo)
 
-
-router.get('/artigos',  (req, res) =>{
+// Rotas de artigos
+router.get('/artigos', (req, res) => {
     res.send('Rota de Artigos')
 })
-router.get('/admin/artigos/new',  (req, res) =>{
-    res.send('Rota  Admin / Artigos')
+router.get('/admin/artigos/new', (req, res) => {
+    res.send('Rota Admin / Artigos')
 })
-
 
 module.exports = router

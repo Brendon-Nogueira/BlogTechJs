@@ -1,3 +1,5 @@
+const slugify = require('slugify')
+
 module.exports = (sequelize, DataTypes) => {
     const Artigo = sequelize.define('Artigo', {
         id: {
@@ -21,18 +23,27 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,  
             references: {
-                model: 'Categoria',  
+                model: 'categorias',   
                 key: 'id'
             }
         }
-    });
+    }, {
+        tableName: 'artigos'  
+    })
 
     Artigo.associate = (models) => {
         Artigo.belongsTo(models.Categoria, {  
             foreignKey: 'fk_id_categoria', 
             as: 'categoria'  
-        });
-    };
+        })
+    }
 
-    return Artigo;
-};
+    Artigo.beforeCreate((artigo) => {
+        artigo.slug = slugify(artigo.titulo, {
+            lower: true,
+            strict: true
+        })
+    })
+
+    return Artigo
+}
