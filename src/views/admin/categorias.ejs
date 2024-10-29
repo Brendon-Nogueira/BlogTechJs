@@ -20,7 +20,8 @@
                         <td><%= categoria.slug %></td>
                         <td>
                             <a href="/admin/categorias/<%= categoria.id %>/editar" class="btn btn-warning btn-sm">Editar</a>
-                            <form action="/admin/categorias/<%= categoria.id %>" method="POST" style="display:inline;">
+                            <form action="/categorias/delete" method="POST" style="display:inline;">
+                                <input type="number" name="id" value="<%= categoria.id %>" class="d-none">
                                 <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                             </form>
                         </td>

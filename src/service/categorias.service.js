@@ -1,5 +1,6 @@
 const slugify = require('slugify')
 const db = require('../model')
+const { where } = require('sequelize')
 
 const getTitulo = async (titulo) => {
     try {
@@ -25,6 +26,24 @@ const createTitulo = async (titulo) => {
     }
 }
 
+const deleteById = async (id) => {
+    try {
+        const categoria = await db.Categoria.findByPk(id)
+
+        if (categoria) {
+            await categoria.destroy()
+
+            return { success: true, message: 'Categoria excluída com sucesso' }
+
+        } else {
+
+            return { success: false, message: 'Categoria não encontrada' }
+        }
+    } catch (error) {
+        throw error
+    }
+}
+
 const getAll = async () => {
     try {
         return await db.Categoria.findAll(); 
@@ -36,5 +55,6 @@ const getAll = async () => {
 module.exports = {
     getTitulo,
     getAll,
-    createTitulo
+    createTitulo,
+    deleteById
 }
