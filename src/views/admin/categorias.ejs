@@ -1,4 +1,7 @@
 <%- include('../partials/header.ejs') %>
+<!-- Link do SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <body>
     <%- include('../partials/navbar.ejs') %>
     <div class="container">
@@ -20,7 +23,7 @@
                         <td><%= categoria.slug %></td>
                         <td>
                             <a href="/admin/categorias/<%= categoria.id %>/editar" class="btn btn-warning btn-sm">Editar</a>
-                            <form action="/categorias/delete" method="POST" style="display:inline;">
+                            <form onsubmit="return confirmarExclusao(event, <%= categoria.id %>)" style="display:inline;">
                                 <input type="number" name="id" value="<%= categoria.id %>" class="d-none">
                                 <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                             </form>
@@ -29,10 +32,33 @@
                 <% }); %>
             </tbody>
         </table>
-        <!-- <div class="text-center">
-            <a href="/admin/categorias/novo" class="btn btn-success">Adicionar Nova Categoria</a>
-        </div> -->
     </div>
-    
+
+    <!-- Função de Confirmação de Exclusão com SweetAlert2 -->
+    <script>
+        const  confirmarExclusao = (event, form) => {
+            event.preventDefault();
+
+            
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: "Esta ação não pode ser desfeita!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, excluir!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    const form = event.target
+                    form.action = `/categorias/delete`
+                    form.method = "POST"
+                    form.submit()
+                }
+            });
+        }
+    </script>
 </body>
 <%- include('../partials/footer.ejs') %>
