@@ -19,7 +19,7 @@ const createTitulo = async (req, res) => {
             const novaCategoria = await categoriaService.createTitulo(titulo)
             //res.status(201).json(novaCategoria)
              
-            res.redirect('/')
+            res.redirect('/admin/categorias')
         }
     } catch (error) {
         res.status(500).send('Erro interno no servidor')
@@ -54,31 +54,26 @@ const deleteById = async (req, res) => {
 
 const editById = async (req, res) => {
 
-        const { id } = req.body;
+    const { id } = req.params
 
-        try {
+    try {
+        if (id && Number.isInteger(Number(id))) {
+            const categoria = await categoriaService.editById(id)
 
-            if  (id && Number.isInteger(Number(id))) {
-
-                const resultado = await categoriaService.editById(id)
-    
-                if (resultado.success) {
-                    res.status(200).render('success', { message: resultado.message })
-                } else {
-                    res.status(404).render('error', { message: resultado.message })
-                }
-                
+            if (categoria) {
+                res.status(200).render('admin/edit', { categoria })
             } else {
-    
-                res.status(400).render('error', { message: 'ID não fornecido' })
+                res.status(404).render('error', { message: 'Categoria não encontrada' })
             }
-
-        } catch (error) {
-
-            console.error('Erro ao excluir categoria:', error);
-            res.status(500).render('error', { message: 'Erro interno no servidor' })
+        } else {
+            res.status(400).render('error', { message: 'ID inválido' })
         }
+    } catch (error) {
+        console.error('Erro ao buscar categoria:', error)
+        res.status(500).render('error', { message: 'Erro interno no servidor' })
+    }
 }
+
 
 const getAll = async (req, res) => {
     try {

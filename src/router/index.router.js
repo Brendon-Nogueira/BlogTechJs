@@ -8,6 +8,10 @@ router.get('/', (req, res) => {
     res.render('index')
 })
 
+router.get('/about', (req, res) => {
+    res.render('about')
+})
+
 // Rota de listagem de categorias
 router.get('/categorias', (req, res) => {
     res.send('Rota de Categorias')
@@ -26,7 +30,7 @@ router.post('/categorias/save', controllerCategorias.createTitulo)
 
 router.post('/categorias/delete', controllerCategorias.deleteById)
 
-router.get('/admin/categorias/edit/:id', controllerCategorias.editById)
+router.get('/admin/categorias/edit/:id', controllerCategorias.editById);
 
 // Rotas de artigos
 router.get('/artigos', (req, res) => {

@@ -45,8 +45,13 @@ const deleteById = async (id) => {
 }
 
 const editById = async (id) => {
-
+    try {
+        return await db.Categoria.findByPk(id)
+    } catch (error) {
+        throw error
+    }
 }
+
 
 const getAll = async () => {
     try {
