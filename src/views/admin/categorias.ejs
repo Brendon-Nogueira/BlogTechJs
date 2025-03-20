@@ -22,7 +22,10 @@
                         <td><%= categoria.titulo %></td>
                         <td><%= categoria.slug %></td>
                         <td>
-                            <a href="/admin/categorias/<%= categoria.id %>/editar" class="btn btn-warning btn-sm">Editar</a>
+                            <form  style="display:inline;">
+                                <button class="btn btn-warning btn-sm" onclick="abreModalEdição()">Editar</button>
+                            </form>
+                           
                             <form onsubmit="return confirmarExclusao(event, <%= categoria.id %>)" style="display:inline;">
                                 <input type="number" name="id" value="<%= categoria.id %>" class="d-none">
                                 <button type="submit" class="btn btn-danger btn-sm">Excluir</button>

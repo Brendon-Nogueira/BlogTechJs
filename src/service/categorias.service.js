@@ -44,6 +44,10 @@ const deleteById = async (id) => {
     }
 }
 
+const editById = async (id) => {
+
+}
+
 const getAll = async () => {
     try {
         return await db.Categoria.findAll(); 
@@ -56,5 +60,6 @@ module.exports = {
     getTitulo,
     getAll,
     createTitulo,
+    editById,
     deleteById
 }

@@ -52,6 +52,34 @@ const deleteById = async (req, res) => {
     }
 }
 
+const editById = async (req, res) => {
+
+        const { id } = req.body;
+
+        try {
+
+            if  (id && Number.isInteger(Number(id))) {
+
+                const resultado = await categoriaService.editById(id)
+    
+                if (resultado.success) {
+                    res.status(200).render('success', { message: resultado.message })
+                } else {
+                    res.status(404).render('error', { message: resultado.message })
+                }
+                
+            } else {
+    
+                res.status(400).render('error', { message: 'ID não fornecido' })
+            }
+
+        } catch (error) {
+
+            console.error('Erro ao excluir categoria:', error);
+            res.status(500).render('error', { message: 'Erro interno no servidor' })
+        }
+}
+
 const getAll = async (req, res) => {
     try {
         const categorias = await categoriaService.getAll();
@@ -64,6 +92,7 @@ const getAll = async (req, res) => {
 
 module.exports = {
     createTitulo,
+    editById,
     deleteById,
     getAll 
 }
