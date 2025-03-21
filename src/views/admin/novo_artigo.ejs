@@ -1,0 +1,59 @@
+<%- include('../partials/header.ejs') %>
+<body>
+    <%- include('../partials/navbar.ejs') %>
+    <div class="container">
+        <div class="col-12 mb-2">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4 class="card-title text-center">Cadastro de Artigo</h4>
+                </div>
+                <div class="card-body">
+                    
+                    <form class="mx-auto" style="max-width: 600px;" action="/artigos/save" method="POST">
+                        <div class="form-group">
+                            <label for="titulo">Título</label>
+                            <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Digite o Título ..." required>
+                        </div>
+                        
+                        <div class="form-group mt-2">
+                            <!-- <label for="artigo">Artigo</label> -->
+                            <textarea class="form-control" name="artigo" id="artigo" placeholder="Descreva seu Artigo ..."></textarea>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-info btn-block">Cadastrar  <i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../../public/assets/plugins/tinymce/js/tinymce/tinymce.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        
+
+        tinymce.init({
+            selector: '#artigo',
+            height: 300,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+                     'bold italic backcolor | alignleft aligncenter ' +
+                     'alignright alignjustify | bullist numlist outdent indent | ' +
+                     'removeformat | help',
+        });
+    });
+</script>
+
+<%- include('../partials/footer.ejs') %>

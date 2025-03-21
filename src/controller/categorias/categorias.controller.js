@@ -74,6 +74,30 @@ const editById = async (req, res) => {
     }
 }
 
+const updateTitulo = async (req, res) => {
+    const { id, titulo } = req.body; 
+
+    try {
+        if (id && Number.isInteger(Number(id)) && titulo.trim() !== '') {
+            const categoriaAtualizada = await categoriaService.updateTitulo(id, titulo)
+
+            if (categoriaAtualizada) {
+                
+                const categorias = await categoriaService.getAll()
+                
+                res.status(200).render('admin/categorias', { categorias })
+            } else {
+                res.status(404).render('error', { message: 'Categoria não encontrada ou não atualizada' })
+            }
+        } else {
+            res.status(400).render('error', { message: 'ID inválido ou título vazio' })
+        }
+    } catch (error) {
+        console.error('Erro ao atualizar a categoria:', error);
+        res.status(500).render('error', { message: 'Erro interno no servidor' })
+    }
+}
+
 
 const getAll = async (req, res) => {
     try {
@@ -87,6 +111,7 @@ const getAll = async (req, res) => {
 
 module.exports = {
     createTitulo,
+    updateTitulo,
     editById,
     deleteById,
     getAll 

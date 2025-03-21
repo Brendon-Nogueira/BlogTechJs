@@ -9,11 +9,12 @@
                 </div>
                 <div class="card-body">
                     
-                    <form class="form-material col-lg-12 col-md-6 col-sm-6" action="/categorias/edit" method="POST">
+                    <form class="form-material col-lg-12 col-md-6 col-sm-6" action="/categorias/update" method="POST">
                         
                         <div class="form-group col-md-4">
                             <label for="titulo">Título</label>
                             <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Digite a Categoria..." required value="<%= categoria.titulo %>">
+                            <input type="number" class="form-control d-none" name="id"  value="<%= categoria.id %>">
                         </div>
 
                         <div class="form-group col-md-4" style="margin-top: 1.750rem;">

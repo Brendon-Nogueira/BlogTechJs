@@ -8,6 +8,10 @@ router.get('/', (req, res) => {
     res.render('index')
 })
 
+router.get('/login', (req, res) => {
+    res.render('login')
+})
+
 router.get('/about', (req, res) => {
     res.render('about')
 })
@@ -28,16 +32,20 @@ router.get('/admin/categorias', controllerCategorias.getAll)
 // Rota para salvar uma nova categoria - Usa POST para criar no banco
 router.post('/categorias/save', controllerCategorias.createTitulo)
 
+router.post('/categorias/update', controllerCategorias.updateTitulo)
+
 router.post('/categorias/delete', controllerCategorias.deleteById)
 
 router.get('/admin/categorias/edit/:id', controllerCategorias.editById);
+
+
 
 // Rotas de artigos
 router.get('/artigos', (req, res) => {
     res.send('Rota de Artigos')
 })
 router.get('/admin/artigos/new', (req, res) => {
-    res.send('Rota Admin / Artigos')
+    res.render('admin/novo_artigo')
 })
 
 module.exports = router

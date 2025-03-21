@@ -26,6 +26,21 @@ const createTitulo = async (titulo) => {
     }
 }
 
+const updateTitulo = async (id, titulo) => {
+    try {
+        const [updated] = await db.Categoria.update(
+            { titulo, slug: slugify(titulo) }, 
+            { where: { id } } 
+        )
+
+        return updated > 0
+    } catch (error) {
+        console.error('Erro ao atualizar categoria:', error)
+        throw error
+    }
+}
+
+
 const deleteById = async (id) => {
     try {
         const categoria = await db.Categoria.findByPk(id)
@@ -63,6 +78,7 @@ const getAll = async () => {
 
 module.exports = {
     getTitulo,
+    updateTitulo,
     getAll,
     createTitulo,
     editById,
