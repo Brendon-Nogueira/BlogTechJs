@@ -44,8 +44,11 @@ router.get('/admin/categorias/edit/:id', controllerCategorias.editById);
 router.get('/artigos', (req, res) => {
     res.send('Rota de Artigos')
 })
-router.get('/admin/artigos/new', (req, res) => {
-    res.render('admin/novo_artigo')
-})
 
+// router.get('/admin/artigos/new', (req, res) => {
+//     res.render('admin/novo_artigo')
+// })
+
+
+router.get('/admin/artigos/new', controllerArtigos.getAll)
 module.exports = router

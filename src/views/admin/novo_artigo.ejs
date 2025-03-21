@@ -19,7 +19,15 @@
                             <!-- <label for="artigo">Artigo</label> -->
                             <textarea class="form-control" name="artigo" id="artigo" placeholder="Descreva seu Artigo ..."></textarea>
                         </div>
-
+                        
+                        <div class="form-group mt-3">
+                            <label for="categorias">Categoria</label>
+                            <select name="categorias" id="categorias" class="select2 form-control">
+                                <% categorias.forEach((categoria) => { %>
+                                    <option value="<%= categoria.id %>"><%= categoria.titulo %></option>
+                                <% }) %>
+                            </select>
+                        </div>
                         <div class="text-center mt-3">
                             <button type="submit" class="btn btn-info btn-block">Cadastrar  <i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
@@ -37,23 +45,29 @@
 
 <script>
     $(document).ready(function() {
-        
 
+        console.log('Document is ready')
+    
+        $('#categorias').select2()
+        
         tinymce.init({
             selector: '#artigo',
             height: 300,
-            menubar: false,
+            menubar: true,
+            language: 'pt_BR',
             plugins: [
-                'advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste code help wordcount'
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'print', 'preview', 'anchor',
+                'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'save', 'table', 'paste', 'code', 'help', 'wordcount'
             ],
             toolbar: 'undo redo | formatselect | ' +
-                     'bold italic backcolor | alignleft aligncenter ' +
-                     'alignright alignjustify | bullist numlist outdent indent | ' +
-                     'removeformat | help',
-        });
-    });
+                    'bold italic backcolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat | help',
+        })
+
+    })
+
 </script>
 
 <%- include('../partials/footer.ejs') %>
