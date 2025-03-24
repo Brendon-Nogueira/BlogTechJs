@@ -1,12 +1,26 @@
 const express = require('express')
 const router = express.Router()
+const db = require('../model')
 const controllerCategorias = require('../controller/categorias/categorias.controller')
 const controllerArtigos = require('../controller/artigos/artigos.controller')
 
 
+const Artigo = db.Artigo 
+
 router.get('/', (req, res) => {
-    res.render('index')
+    Artigo.findAll({
+        // join
+        include: [{ model: db.Categoria, as: 'categoria' }] 
+    }).then(artigos => {
+        res.render('index', { artigos })
+    }).catch(err => {
+        console.error('Erro ao buscar artigos:', err)
+        res.status(500).send('Erro interno ao buscar artigos')
+    })
 })
+
+
+router.get('/', controllerArtigos.getArtigos)
 
 router.get('/login', (req, res) => {
     res.render('login')
@@ -38,7 +52,8 @@ router.get('/admin/categorias/edit/:id', controllerCategorias.editById);
 router.get('/admin/artigos', controllerArtigos.getArtigos)
 router.get('/admin/artigos/new', controllerArtigos.getAll)
 router.post('/artigos/save', controllerArtigos.createArtigo)
-router.post('artigos/delete', controllerArtigos.deleteById)
+router.post('/artigos/delete', controllerArtigos.deleteById)
+router.get('/admin/artigos/edit/:id', controllerArtigos.editById);
 
 
 

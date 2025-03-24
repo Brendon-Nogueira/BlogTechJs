@@ -66,10 +66,19 @@ const deleteById = async (id) => {
     }
 }
 
+const editById = async (id) => {
+    try {
+        return await db.Artigo.findByPk(id)
+    } catch (error) {
+        throw error
+    }
+}
+
 
 module.exports = {
     getArtigos,
     getTitulo,
     createArtigo,
-    deleteById
+    deleteById,
+    editById
 }

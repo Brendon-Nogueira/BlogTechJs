@@ -61,7 +61,7 @@ const editById = async (req, res) => {
             const categoria = await categoriaService.editById(id)
 
             if (categoria) {
-                res.status(200).render('admin/edit', { categoria })
+                res.status(200).render('admin/editar_categoria', { categoria })
             } else {
                 res.status(404).render('error', { message: 'Categoria não encontrada' })
             }

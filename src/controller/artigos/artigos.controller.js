@@ -74,11 +74,33 @@ const deleteById = async (req, res) => {
         }
 }
 
+const editById = async (req, res) => {
+
+    const { id } = req.params
+
+    try {
+        if (id && Number.isInteger(Number(id))) {
+            const artigo = await artigoServiceService.editById(id)
+
+            if (artigo) {
+                res.status(200).render('admin/editar_artigo', { artigo })
+            } else {
+                res.status(404).render('error', { message: 'Artigo não encontrado' })
+            }
+        } else {
+            res.status(400).render('error', { message: 'ID inválido' })
+        }
+    } catch (error) {
+        console.error('Erro ao buscar artigo:', error)
+        res.status(500).render('error', { message: 'Erro interno no servidor' })
+    }
+}
 
 
 module.exports = {
     getAll,
     getArtigos,
     createArtigo,
-    deleteById
+    deleteById,
+    editById
 }
