@@ -16,16 +16,10 @@ router.get('/about', (req, res) => {
     res.render('about')
 })
 
-// Rota de listagem de categorias
-router.get('/categorias', (req, res) => {
-    res.send('Rota de Categorias')
-})
-
 // Rota para exibir o formulário de criação de nova categoria
 router.get('/admin/categorias/new', (req, res) => {
     res.render('admin/nova_categoria')
 })
-
 
 router.get('/admin/categorias', controllerCategorias.getAll)
 
@@ -41,14 +35,15 @@ router.get('/admin/categorias/edit/:id', controllerCategorias.editById);
 
 
 // Rotas de artigos
-router.get('/artigos', (req, res) => {
-    res.send('Rota de Artigos')
-})
-
-// router.get('/admin/artigos/new', (req, res) => {
-//     res.render('admin/novo_artigo')
-// })
-
-
+router.get('/admin/artigos', controllerArtigos.getArtigos)
 router.get('/admin/artigos/new', controllerArtigos.getAll)
+router.post('/artigos/save', controllerArtigos.createArtigo)
+router.post('artigos/delete', controllerArtigos.deleteById)
+
+
+
+
+
 module.exports = router
+
+

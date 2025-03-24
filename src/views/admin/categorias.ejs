@@ -1,5 +1,4 @@
 <%- include('../partials/header.ejs') %>
-<!-- Link do SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <body>
@@ -9,19 +8,19 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Slug</th>
-                    <th>Ações</th>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Título</th>
+                    <th class="text-center">Slug</th>
+                    <th class="text-center">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <% categorias.forEach(categoria => { %>
                     <tr>
-                        <td><%= categoria.id %></td>
-                        <td><%= categoria.titulo %></td>
-                        <td><%= categoria.slug %></td>
-                        <td>
+                        <td class="text-center"><%= categoria.id %></td>
+                        <td class="text-center"><%= categoria.titulo %></td>
+                        <td class="text-center"><%= categoria.slug %></td>
+                        <td class="text-center">
                             <form  style="display:inline;">
                                 <a class="btn btn-warning btn-sm" href="/admin/categorias/edit/<%= categoria.id %>">Editar</a>
                             </form>

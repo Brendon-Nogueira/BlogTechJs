@@ -1,0 +1,68 @@
+<%- include('../partials/header.ejs') %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<body>
+    <%- include('../partials/navbar.ejs') %>
+    <div class="container">
+        <h1 class="mt-4 mb-4 text-center">Listagem de Artigos</h1>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Título</th>
+                    <th class="text-center">Slug</th>
+                    <th class="text-center">Categoria</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% artigos.forEach(artigo => { %>
+                    <tr>
+                        <td class="text-center"><%= artigo.id %></td>
+                        <td class="text-center"><%= artigo.titulo %></td>
+                        <td class="text-center"><%= artigo.slug %></td>
+                        <td class="text-center"><%= artigo.categoria.titulo %></td>
+                        <td class="text-center">
+                            <form  style="display:inline;">
+                                <a class="btn btn-warning btn-sm" href="/admin/artigos/edit/<%= artigo.id %>">Editar</a>
+                            </form>
+                           
+                            <form onsubmit="return confirmarExclusao(event, <%= artigo.id %>)" style="display:inline;">
+                                <input type="number" name="id" value="<%= artigo.id %>" class="d-none">
+                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Função de Confirmação de Exclusão com SweetAlert2 -->
+    <script>
+        const  confirmarExclusao = (event, form) => {
+            event.preventDefault();
+
+            
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: "Esta ação não pode ser desfeita!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, excluir!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    const form = event.target
+                    form.action = `/artigos/delete`
+                    form.method = "POST"
+                    form.submit()
+                }
+            });
+        }
+    </script>
+</body>
+<%- include('../partials/footer.ejs') %>

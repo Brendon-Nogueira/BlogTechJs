@@ -1,5 +1,5 @@
 const slugify = require('slugify')
-const db = require('../model')
+const db = require('../model'); 
 const { where } = require('sequelize')
 
 const getTitulo = async (titulo) => {
