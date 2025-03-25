@@ -24,8 +24,9 @@
                         <div class="card-body">
                             <h5 class="card-title"><%= artigo.titulo %></h5>
                             <p class="text-muted">Categoria: <%= artigo.categoria ? artigo.categoria.titulo : 'Sem categoria' %></p>
-                            <p class="card-text"><%= artigo.conteudo.substring(0, 200) %>...</p>
-                            <a href="/artigos/<%= artigo.slug %>" class="btn btn-primary btn-sm">Leia mais</a>
+                            <!-- <p class="card-text"><%= artigo.conteudo.substring(0, 200) %>...</p> -->
+                            <p class="card-text"><%- artigo.conteudo%></p> 
+                            <!-- <a href="/artigos/<%= artigo.slug %>" class="btn btn-primary btn-sm">Leia mais</a> -->
                             
                             <!-- Botões de interação -->
                             <div class="mt-3">

@@ -80,7 +80,7 @@ const editById = async (req, res) => {
 
     try {
         if (id && Number.isInteger(Number(id))) {
-            const artigo = await artigoServiceService.editById(id)
+            const artigo = await artigoService.editById(id)
 
             if (artigo) {
                 res.status(200).render('admin/editar_artigo', { artigo })

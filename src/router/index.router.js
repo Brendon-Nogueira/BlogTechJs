@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../model')
+const verificarToken = require('../middleware/verifica_token')
 const controllerCategorias = require('../controller/categorias/categorias.controller')
 const controllerArtigos = require('../controller/artigos/artigos.controller')
+const controllerUsuarios = require('../controller/login/usuarios.controller')
 
 
 const Artigo = db.Artigo 
@@ -56,9 +58,26 @@ router.post('/artigos/delete', controllerArtigos.deleteById)
 router.get('/admin/artigos/edit/:id', controllerArtigos.editById);
 
 
+// rotas de login
+router.get('/usuarios', verificarToken, async (req, res) => {
+    try {
+        const usuarios = await db.Usuario.findAll() 
+        res.json(usuarios)
+    } catch (error) {
+        res.status(500).json({ error: "Erro ao buscar usuários" })
+    }
+})
+
+
+router.post('/login', controllerUsuarios.getUser)
+
+router.post('/logout', (req, res) => {
+    res.clearCookie('token')
+    res.json({ message: "Logout realizado com sucesso!" })
+})
+
 
 
 
 module.exports = router
-
 
