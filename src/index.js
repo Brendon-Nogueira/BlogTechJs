@@ -11,10 +11,6 @@ const db = require('./model')
 const router = require('./router/index.router')
 
 
-
-
-
-
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
