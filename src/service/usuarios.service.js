@@ -5,17 +5,35 @@ require('dotenv').config()
 
 const getUser = async (email, senha) => {
     try {
-        const usuario = await Usuario.findOne({ where: { email } })
+
+
+        const usuario = await Usuario.findOne({ where: { email: email.trim().toLowerCase() } })
+
+        
+        console.log("Senha digitada no login:", senha);
+        
+        console.log("Senha armazenada no banco ao buscar:", usuario.senha);
+
+
         if (!usuario) return { error: "Usuário não encontrado" }
 
         const senhaValida = await bcrypt.compare(senha, usuario.senha)
+        
+        
+
+        console.log("Senha digitada no login:", senha)
+        console.log("Senha armazenada no banco:", usuario.senha)
+        console.log("Resultado da comparação:", senhaValida)
+
+
         if (!senhaValida) return { error: "Senha incorreta" }
+
 
         const token = jwt.sign(
             { id: usuario.id, email: usuario.email },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
-        );
+        )
 
         return { usuario, token }
 
@@ -28,28 +46,24 @@ const getUser = async (email, senha) => {
 
 const createUser = async (nome, email, senha) => {
     try {
-      
         const usuarioExistente = await Usuario.findOne({ where: { email } })
         if (usuarioExistente) {
             return { error: "Usuário já cadastrado" }
         }
 
-        // Hash da senha antes de salvar no banco
-        const senhaHash = await bcrypt.hash(senha, 10)
-
-        // Criação do usuário
+        // Criação do usuário sem hashear manualmente a senha
         const novoUsuario = await Usuario.create({ 
             nome, 
-            email, 
-            senha: senhaHash 
-        });
+            email: email.trim().toLowerCase(), 
+            senha // A senha será automaticamente hasheada pelo hook do Sequelize
+        })
 
         // Geração do token JWT
         const token = jwt.sign(
             { id: novoUsuario.id, email: novoUsuario.email },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
-        )
+        );
 
         return { usuario: novoUsuario, token }
     } catch (error) {
@@ -57,6 +71,7 @@ const createUser = async (nome, email, senha) => {
         return { error: "Erro interno no servidor" }
     }
 };
+
 
 module.exports = {
     createUser,

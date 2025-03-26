@@ -7,9 +7,11 @@ const createUser = async (req, res) => {
     try {
         const resultado = await usuarioService.createUser(nome, email, senha)
 
+        console.log("Senha digitada:", senha)
+
         if (resultado.error) {
 
-            return res.status(400).render('registro', { error: result.error })
+            return res.status(400).render('registro', { error: resultado.error })
 
         } else{
 
@@ -55,14 +57,18 @@ const getUser = async (req, res) => {
         const result = await usuarioService.getUser(email, senha)
 
         if (result.error) {
+
             return res.render('login', { error: result.error })
+
+        } else if (!result || !result.token) {
+
+            console.error("Erro: Token não foi gerado corretamente.")
+            return res.render('login', { error: "Erro ao gerar autenticação." })
         } else {
 
-            // Armazena o token na sessão para autenticação
+            // Armazena o token na sessão
             req.session.token = result.token
-
-            res.redirect('/admin')
-
+            res.redirect('/admin/artigos')
         }
 
         
@@ -72,7 +78,6 @@ const getUser = async (req, res) => {
         res.status(500).render('login', { error: "Erro interno no servidor" })
     }
 }
-
 
 const logout = async (req, res) => {
 

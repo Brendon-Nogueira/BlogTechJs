@@ -47,7 +47,7 @@ router.get('/admin/artigos/edit/:id', controllerArtigos.editById);
 router.get('/login', controllerUsuarios.renderLogin)
 router.post('/login', controllerUsuarios.getUser)
 router.get('/registrar', controllerUsuarios.renderRegister)
-router.post('registrar/novo_usuario', controllerUsuarios.createUser)
+router.post('/registrar/novo_usuario', controllerUsuarios.createUser)
 router.post('/logout', controllerUsuarios.logout )
 
 

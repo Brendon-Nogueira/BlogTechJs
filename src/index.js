@@ -1,7 +1,7 @@
 require('dotenv').config();
-//console.log('Variáveis carregadas:', process.env)
 
 const express = require('express')
+const session = require('express-session')
 const app = express()
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -20,7 +20,12 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 // Middlewares
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }  
+}))
 
 app.use('/', router)
 app.use('/auth', authRoutes) 
@@ -33,7 +38,7 @@ db.sequelize.authenticate()
     console.log("JWT Secret:", process.env.JWT_SECRET);
 
     
-    return db.sequelize.sync({ alter: true })
+    return db.sequelize.sync() // removido{ alter: true }
   })
   .then(() => {
     console.log('Tabelas sincronizadas com sucesso.')
