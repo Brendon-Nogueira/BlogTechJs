@@ -6,22 +6,6 @@ const router = express.Router()
 require('dotenv').config() 
 
 
-router.post('/register', async (req, res) => {
-    try {
-        const { email, senha } = req.body;
-
-        const userExists = await Usuario.findOne({ where: { email } })
-        if (userExists) return res.status(400).json({ error: "E-mail já cadastrado" });
-
-        const usuario = await Usuario.create({ email, senha });
-
-        res.status(201).json({ message: "Usuário criado com sucesso!" })
-    } catch (error) {
-        res.status(500).json({ error: "Erro ao cadastrar usuário" })
-    }
-})
-
-// Login de usuário
 router.post('/login', async (req, res) => {
     try {
         const { email, senha } = req.body
