@@ -1,6 +1,5 @@
-<!-- login.ejs -->
+
 <%- include('partials/header.ejs') %>
- 
 <body class="d-flex align-items-center justify-content-center" style="height: 100vh; background-color: #17a2b8;">
    
     <nav class="navbar navbar-dark bg-info w-100">
@@ -12,8 +11,12 @@
     </nav>
     <div class="container d-flex justify-content-center">
         <div class="card p-4 shadow-lg" style="width: 100%; max-width: 400px;">
-            <h3 class="text-center text-info">Login</h3>
-            <form action="/login" method="POST">
+            <h3 class="text-center text-info">Registrar</h3>
+            <form action="/registrar/novo_usuario" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Digite seu nome" required>
+                </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">E-mail</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
@@ -22,13 +25,12 @@
                     <label for="password" class="form-label">Senha</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
                 </div>
-                <button type="submit" class="btn btn-info w-100">Entrar</button>
+                <button type="submit" class="btn btn-info w-100">Cadastrar</button>
             </form>
             <div class="text-center mt-3">
-                <p>Não tem uma conta? <a href="/registrar" class="text-info">Cadastre-se</a></p>
+                <p>Já tem uma conta? <a href="/login" class="text-info">Entrar</a></p>
             </div>
         </div>
     </div>
 </body>
-
 <%- include('partials/footer.ejs') %>

@@ -109,12 +109,26 @@ const getAll = async (req, res) => {
     }
 }
 
+const renderCategorias = async (req, res) => {
+
+    try {
+        
+        res.render('admin/nova_categoria')
+
+    } catch (error) {
+
+        console.error('Erro ao renderizar a view nova_categoria :', error)
+        res.status(500).send('Erro interno no servidor')
+    }
+}
+
 module.exports = {
     createTitulo,
     updateTitulo,
     editById,
     deleteById,
-    getAll 
+    getAll,
+    renderCategorias
 }
 
 

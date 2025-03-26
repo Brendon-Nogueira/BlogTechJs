@@ -5,10 +5,9 @@ const verificarToken = require('../middleware/verifica_token')
 const controllerCategorias = require('../controller/categorias/categorias.controller')
 const controllerArtigos = require('../controller/artigos/artigos.controller')
 const controllerUsuarios = require('../controller/login/usuarios.controller')
-
-
 const Artigo = db.Artigo 
 
+// rotas publicas homepage e about
 router.get('/', (req, res) => {
     Artigo.findAll({
         // join
@@ -21,32 +20,18 @@ router.get('/', (req, res) => {
     })
 })
 
-
-router.get('/', controllerArtigos.getArtigos)
-
-router.get('/login', (req, res) => {
-    res.render('login')
-})
-
 router.get('/about', (req, res) => {
     res.render('about')
 })
 
-// Rota para exibir o formulário de criação de nova categoria
-router.get('/admin/categorias/new', (req, res) => {
-    res.render('admin/nova_categoria')
-})
 
+// Rotas de categorias
+router.get('/admin/categorias/new', controllerCategorias.renderCategorias)
 router.get('/admin/categorias', controllerCategorias.getAll)
-
-// Rota para salvar uma nova categoria - Usa POST para criar no banco
 router.post('/categorias/save', controllerCategorias.createTitulo)
-
 router.post('/categorias/update', controllerCategorias.updateTitulo)
-
 router.post('/categorias/delete', controllerCategorias.deleteById)
-
-router.get('/admin/categorias/edit/:id', controllerCategorias.editById);
+router.get('/admin/categorias/edit/:id', controllerCategorias.editById)
 
 
 
@@ -59,6 +44,15 @@ router.get('/admin/artigos/edit/:id', controllerArtigos.editById);
 
 
 // rotas de login
+router.get('/login', controllerUsuarios.renderLogin)
+router.post('/login', controllerUsuarios.getUser)
+router.get('/registrar', controllerUsuarios.renderRegister)
+router.post('registrar/novo_usuario', controllerUsuarios.createUser)
+router.post('/logout', controllerUsuarios.logout )
+
+
+
+// rota protegida para visualizar os usuários
 router.get('/usuarios', verificarToken, async (req, res) => {
     try {
         const usuarios = await db.Usuario.findAll() 
@@ -69,12 +63,7 @@ router.get('/usuarios', verificarToken, async (req, res) => {
 })
 
 
-router.post('/login', controllerUsuarios.getUser)
 
-router.post('/logout', (req, res) => {
-    res.clearCookie('token')
-    res.json({ message: "Logout realizado com sucesso!" })
-})
 
 
 

@@ -32,10 +32,13 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/logout">
-                        <i class="fa fa-sign-in"></i> Logout
-                    </a>
+                    <form action="/logout" method="POST" style="display: inline;">
+                        <button type="submit" class="nav-link btn btn-link text-white" style="border: none; cursor: pointer;">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </button>
+                    </form>
                 </li>
+                
                 
                 <!-- <li class="nav-item">
                     <a class="nav-link text-white" href="/about">
