@@ -27,6 +27,13 @@ app.use(session({
   cookie: { secure: false }  
 }))
 
+
+// Middleware para tornar a sessão disponível nas views
+app.use((req, res, next) => {
+  res.locals.session = req.session
+  next();
+})
+
 app.use('/', router)
 app.use('/auth', authRoutes) 
 
@@ -35,10 +42,10 @@ app.use('/auth', authRoutes)
 db.sequelize.authenticate()
   .then(() => {
     console.log('Conexão estabelecida com sucesso.')
-    console.log("JWT Secret:", process.env.JWT_SECRET);
+    console.log("JWT Secret:", process.env.JWT_SECRET)
 
     
-    return db.sequelize.sync() // removido{ alter: true }
+    return db.sequelize.sync({ alter: true }) 
   })
   .then(() => {
     console.log('Tabelas sincronizadas com sucesso.')

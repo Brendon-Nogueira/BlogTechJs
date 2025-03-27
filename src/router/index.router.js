@@ -10,15 +10,18 @@ const Artigo = db.Artigo
 // rotas publicas homepage e about
 router.get('/', (req, res) => {
     Artigo.findAll({
-        // join
-        include: [{ model: db.Categoria, as: 'categoria' }] 
+        include: [{ model: db.Categoria, as: 'categoria' }]
     }).then(artigos => {
-        res.render('index', { artigos })
+        res.render('index', { 
+            artigos,
+            usuario: req.session.usuario || null 
+        })
     }).catch(err => {
         console.error('Erro ao buscar artigos:', err)
         res.status(500).send('Erro interno ao buscar artigos')
     })
 })
+
 
 router.get('/about', (req, res) => {
     res.render('about')

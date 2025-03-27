@@ -51,48 +51,49 @@ const renderRegister = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-    const { email, senha } = req.body;
+    const { email, senha } = req.body
 
     try {
         const result = await usuarioService.getUser(email, senha)
 
         if (result.error) {
-
             return res.render('login', { error: result.error })
-
-        } else if (!result || !result.token) {
-
+        } 
+        
+        if (!result || !result.token) {
             console.error("Erro: Token não foi gerado corretamente.")
             return res.render('login', { error: "Erro ao gerar autenticação." })
-        } else {
-
-            // Armazena o token na sessão
-            req.session.token = result.token
-            res.redirect('/admin/artigos')
         }
 
-        
+        // Armazena o usuário na sessão
+        req.session.user = {
+            id: result.usuario.id,
+            email: result.usuario.email
+        };
 
+        res.redirect('/admin/artigos')
     } catch (error) {
         console.error('Erro ao obter o usuário:', error)
         res.status(500).render('login', { error: "Erro interno no servidor" })
     }
 }
 
+
 const logout = async (req, res) => {
-
     try {
-        
-        res.clearCookie('token')
-        res.redirect('/')
-
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Erro ao destruir a sessão:', err)
+                return res.status(500).send('Erro interno no servidor')
+            }
+            res.redirect('/')
+        })
     } catch (error) {
-
-        console.error('Erro ao realizar o logout :', error)
+        console.error('Erro ao realizar o logout:', error)
         res.status(500).send('Erro interno no servidor')
     }
-   
 }
+
 
 
 module.exports = {
