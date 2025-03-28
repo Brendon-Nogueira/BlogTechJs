@@ -34,7 +34,9 @@ router.get('/admin/categorias', controllerCategorias.getAll)
 router.post('/categorias/save', controllerCategorias.createTitulo)
 router.post('/categorias/update', controllerCategorias.updateTitulo)
 router.post('/categorias/delete', controllerCategorias.deleteById)
+router.post('/categorias/delete/:id', controllerCategorias.deleteById)
 router.get('/admin/categorias/edit/:id', controllerCategorias.editById)
+router.post('/admin/categorias/edit/:id', controllerCategorias.editById)
 
 
 
@@ -42,8 +44,8 @@ router.get('/admin/categorias/edit/:id', controllerCategorias.editById)
 router.get('/admin/artigos', controllerArtigos.getArtigos)
 router.get('/admin/artigos/new', controllerArtigos.getAll)
 router.post('/artigos/save', controllerArtigos.createArtigo)
-router.post('/artigos/delete', controllerArtigos.deleteById)
-router.get('/admin/artigos/edit/:id', controllerArtigos.editById);
+router.post('/artigos/delete/:id', controllerArtigos.deleteById)
+router.get('/admin/artigos/edit/:id', controllerArtigos.editById)
 
 
 // rotas de login

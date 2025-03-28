@@ -75,15 +75,15 @@ const deleteById = async (req, res) => {
 }
 
 const editById = async (req, res) => {
-
-    const { id } = req.params
+    const { id } = req.params;
 
     try {
         if (id && Number.isInteger(Number(id))) {
             const artigo = await artigoService.editById(id)
+            const categorias = await categoriaService.getAll()
 
             if (artigo) {
-                res.status(200).render('admin/editar_artigo', { artigo })
+                res.status(200).render('admin/editar_artigo', { artigo, categorias })
             } else {
                 res.status(404).render('error', { message: 'Artigo não encontrado' })
             }
@@ -95,6 +95,7 @@ const editById = async (req, res) => {
         res.status(500).render('error', { message: 'Erro interno no servidor' })
     }
 }
+
 
 
 module.exports = {

@@ -9,21 +9,64 @@
                 </div>
                 <div class="card-body">
                     
-                    <!-- <form class="form-material col-lg-12 col-md-6 col-sm-6" action="/categorias/update" method="POST">
-                        
-                        <div class="form-group col-md-4">
+                    <form class="mx-auto" style="max-width: 600px;" action="/artigos/edit" method="POST">
+                        <div class="form-group">
                             <label for="titulo">Título</label>
-                            <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Digite a Categoria..." required value="<%= categoria.titulo %>">
-                            <input type="number" class="form-control d-none" name="id"  value="<%= categoria.id %>">
-                        </div>
+                            <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Digite o Título ..." value="<%= artigo.titulo %>" required>
 
-                        <div class="form-group col-md-4" style="margin-top: 1.750rem;">
-                            <button type="submit" class="btn btn-info"> Atualizar </button>
                         </div>
-                    </form> -->
+                        
+                        <div class="form-group mt-2">
+                            <!-- <label for="artigo">Artigo</label> -->
+                            <textarea class="form-control" name="descricao" id="artigo" placeholder="Descreva seu Artigo ..."></textarea>
+                        </div>
+                        
+                        <div class="form-group mt-3">
+                            <label for="categorias">Categoria</label>
+                            <select name="categorias" id="categorias" class="select2 form-control">
+                                <% categorias.forEach((categoria) => { %>
+                                    <option value="<%= categoria.id %>"><%= categoria.titulo %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-info btn-block">Atualizar  <i class="fa fa-edit" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.7.2/tinymce.min.js"></script>
+
+<div id="content" class="d-none">
+    <%-artigo.conteudo%>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function() {
+
+        console.log('Document is ready')
+    
+        $('#categorias').select2()
+        
+        tinymce.init({
+            selector: '#artigo',
+            init_instance_callback: () => {
+                tinymce.get("artigo").setContent($(`#content`).html())
+            }
+        })
+
+
+    })
+
+</script>
 <%- include('../partials/footer.ejs') %>
