@@ -45,6 +45,7 @@ router.get('/admin/artigos', controllerArtigos.getArtigos)
 router.get('/admin/artigos/new', controllerArtigos.getAll)
 router.post('/artigos/save', controllerArtigos.createArtigo)
 router.post('/artigos/delete', controllerArtigos.deleteById)
+router.post('/artigos/update', controllerArtigos.updateArtigo)
 router.get('/admin/artigos/edit/:id', controllerArtigos.editById)
 
 

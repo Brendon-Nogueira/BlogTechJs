@@ -75,7 +75,7 @@ const editById = async (req, res) => {
 }
 
 const updateTitulo = async (req, res) => {
-    const { id, titulo } = req.body; 
+    const { id, titulo } = req.body
 
     try {
         if (id && Number.isInteger(Number(id)) && titulo.trim() !== '') {

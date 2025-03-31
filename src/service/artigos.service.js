@@ -68,8 +68,40 @@ const deleteById = async (id) => {
 
 const editById = async (id) => {
     try {
-        return await db.Artigo.findByPk(id)
+        return await db.Artigo.findByPk(id, {
+            include: {
+                model: db.Categoria, 
+                as: 'categoria' 
+            }
+        });
     } catch (error) {
+        throw error;
+    }
+}
+
+const updateArtigo = async (id, titulo, descricao, id_categoria) => {
+    try {
+        const artigo = await db.Artigo.findByPk(id)
+
+        if (!artigo) {
+            return null
+        }
+
+        const [updated] = await db.Artigo.update(
+            { 
+                titulo: titulo, 
+                slug: slugify(titulo), 
+                conteudo: descricao, 
+                fk_id_categoria: id_categoria 
+            }, 
+            { where: { id } }
+        )
+        
+        return updated > 0 ? await db.Artigo.findByPk(id) : null
+
+        
+    } catch (error) {
+        console.error("Erro ao atualizar artigo:", error)
         throw error
     }
 }
@@ -79,6 +111,7 @@ module.exports = {
     getArtigos,
     getTitulo,
     createArtigo,
+    updateArtigo,
     deleteById,
     editById
 }

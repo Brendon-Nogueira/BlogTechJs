@@ -48,35 +48,52 @@
     <!-- Inicialização do DataTables -->
     <script>
         $(document).ready(function() {
+
             $('#tabelaCategorias').DataTable({
                 "responsive": true,
-                    "retrieve": true,
-                    pageLength: 5,
-                    "order": [[6, "desc"]],
-                    "language": {
-                        "url": "../../js/Portuguese-Brasil.json"
+                "retrieve": true,
+                "pageLength": 5,
+                "order": [[0, "desc"]],
+                "language": {
+                    "decimal": ",",
+                    "thousands": ".",
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sLengthMenu": "Mostrar _MENU_ registros por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sSearch": "Pesquisar:",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    }
+                },
+                "dom": "Bfrtip",
+                "buttons": [
+                    {
+                        extend: 'excelHtml5',
+                        className: "dt-button",
+                        text: '<i class="fa fa-file-excel" aria-hidden="true"></i>&nbsp Excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
                     },
-                    "dom": "Bfrtip",
-                    "buttons":
-                        [
-                            {
-                                extend: 'excelHtml5',
-                                className: "dt-button",
-                                text: '<i class="fa fa-file-excel" aria-hidden="true"></i>&nbsp Excel',
-                                exportOptions: {
-                                    columns: ':not(:last-child)',
-                                }
-                            }
-                            , "copy",
-                            {
-                                extend: 'pdf',
-                                orientation: 'landscape',
-                                pageSize: 'A4'
-                            },
-
-                        ]
+                    "copy",
+                    {
+                        extend: 'pdf',
+                        orientation: 'landscape',
+                        pageSize: 'A4'
+                    }
+                ]
             })
+            
         })
+
 
         
 

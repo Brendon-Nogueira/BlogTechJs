@@ -79,11 +79,16 @@ const editById = async (req, res) => {
 
     try {
         if (id && Number.isInteger(Number(id))) {
-            const artigo = await artigoService.editById(id)
-            const categorias = await categoriaService.getAll()
+            const artigo = await artigoService.editById(id);
+            const categorias = await categoriaService.getAll();
 
             if (artigo) {
-                res.status(200).render('admin/editar_artigo', { artigo, categorias })
+                const artigoFormatado = {
+                    ...artigo.dataValues,
+                    categoria: artigo.categoria ? artigo.categoria : { id: null } 
+                }
+
+                res.status(200).render('admin/editar_artigo', { artigo: artigoFormatado, categorias })
             } else {
                 res.status(404).render('error', { message: 'Artigo não encontrado' })
             }
@@ -91,10 +96,33 @@ const editById = async (req, res) => {
             res.status(400).render('error', { message: 'ID inválido' })
         }
     } catch (error) {
-        console.error('Erro ao buscar artigo:', error)
+        console.error('Erro ao buscar artigo:', error);
         res.status(500).render('error', { message: 'Erro interno no servidor' })
     }
 }
+
+const updateArtigo = async (req, res) => {
+    const { id, titulo, descricao, id_categoria } = req.body
+
+    if (!id || !titulo || !descricao || !id_categoria) {
+        return res.status(400).render('error', { message: 'Todos os campos são obrigatórios' })
+    }
+
+    try {
+        const artigoAtualizado = await artigoService.updateArtigo(id, titulo, descricao, id_categoria)
+
+        if (!artigoAtualizado) {
+            return res.status(404).render('error', { message: 'Artigo não encontrado' })
+        }
+
+        res.redirect('/admin/artigos') 
+
+    } catch (error) {
+        res.status(400).render('error', { message: error.message })
+    }
+}
+
+
 
 
 
@@ -102,6 +130,7 @@ module.exports = {
     getAll,
     getArtigos,
     createArtigo,
+    updateArtigo,
     deleteById,
     editById
 }
