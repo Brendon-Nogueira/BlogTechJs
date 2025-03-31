@@ -3,43 +3,85 @@
 
 <body>
     <%- include('../partials/navbar.ejs') %>
-    <div class="container">
-        <h1 class="mt-4 mb-4 text-center">Listagem de Artigos</h1>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">Título</th>
-                    <th class="text-center">Slug</th>
-                    <th class="text-center">Categoria</th>
-                    <th class="text-center">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% artigos.forEach(artigo => { %>
-                    <tr>
-                        <td class="text-center"><%= artigo.id %></td>
-                        <td class="text-center"><%= artigo.titulo %></td>
-                        <td class="text-center"><%= artigo.slug %></td>
-                        <td class="text-center"><%= artigo.categoria.titulo %></td>
-                        <td class="text-center">
-                            <form  style="display:inline;">
-                                <a class="btn btn-warning btn-sm" href="/admin/artigos/edit/<%= artigo.id %>">Editar</a>
-                            </form>
-                           
-                            <form onsubmit="return confirmarExclusao(event, <%= artigo.id %>)" style="display:inline;">
-                                <input type="number" name="id" value="<%= artigo.id %>" class="d-none">
-                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
-                            </form>
-                        </td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header text-dark">
+                <h4 class="mb-0 text-center">Gerenciamento de Categorias</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="tabelaCategorias" class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Título</th>
+                                <th class="text-center">Slug</th>
+                                <th class="text-center">Categoria</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% artigos.forEach(artigo => { %>
+                                <tr>
+                                    <td class="text-center"><%= artigo.id %></td>
+                                    <td class="text-center"><%= artigo.titulo %></td>
+                                    <td class="text-center"><%= artigo.slug %></td>
+                                    <td class="text-center"><%= artigo.categoria.titulo %></td>
+                                    <td class="text-center">
+                                        <form  style="display:inline;">
+                                            <a class="btn btn-warning btn-sm" href="/admin/artigos/edit/<%= artigo.id %>">Editar</a>
+                                        </form>
+                                       
+                                        <form onsubmit="return confirmarExclusao(event, <%= artigo.id %>)" style="display:inline;">
+                                            <input type="number" name="id" value="<%= artigo.id %>" class="d-none">
+                                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-
+    
+    <script src="../../public/assets/plugins/jquery/jquery-3.6.0.min.js"></script>
     <!-- Função de Confirmação de Exclusão com SweetAlert2 -->
     <script>
+
+        $(document).ready(function() {
+            $('#tabelaArtigos').DataTable({
+                "responsive": true,
+                    "retrieve": true,
+                    pageLength: 5,
+                    "order": [[6, "desc"]],
+                    "language": {
+                        "url": "../../js/Portuguese-Brasil.json"
+                    },
+                    "dom": "Bfrtip",
+                    "buttons":
+                        [
+                            {
+                                extend: 'excelHtml5',
+                                className: "dt-button",
+                                text: '<i class="fa fa-file-excel" aria-hidden="true"></i>&nbsp Excel',
+                                exportOptions: {
+                                    columns: ':not(:last-child)',
+                                }
+                            }
+                            , "copy",
+                            {
+                                extend: 'pdf',
+                                orientation: 'landscape',
+                                pageSize: 'A4'
+                            },
+
+                        ]
+            })
+        })
+
+
         const  confirmarExclusao = (event, form) => {
             event.preventDefault();
 
