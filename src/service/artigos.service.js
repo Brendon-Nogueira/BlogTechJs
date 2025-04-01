@@ -28,9 +28,8 @@ const getTitulo = async (titulo) => {
         }
 }
 
-const createArtigo = async (titulo, descricao, categoria) => {
+const createArtigo = async (titulo, descricao, categoria, usuarioId) => {
     try {
-       
         const slug = slugify(titulo, {
             lower: true,      
             strict: true     
@@ -40,7 +39,8 @@ const createArtigo = async (titulo, descricao, categoria) => {
             titulo: titulo, 
             slug: slug, 
             conteudo: descricao, 
-            fk_id_categoria: categoria
+            fk_id_categoria: categoria,
+            fk_id_usuario: usuarioId 
         })
 
     } catch (error) {
@@ -48,8 +48,9 @@ const createArtigo = async (titulo, descricao, categoria) => {
     }
 }
 
-// const createArtigo = async (titulo, descricao, categoria, userId) => {
+// const createArtigo = async (titulo, descricao, categoria) => {
 //     try {
+       
 //         const slug = slugify(titulo, {
 //             lower: true,      
 //             strict: true     
@@ -59,14 +60,14 @@ const createArtigo = async (titulo, descricao, categoria) => {
 //             titulo: titulo, 
 //             slug: slug, 
 //             conteudo: descricao, 
-//             fk_id_categoria: categoria,
-//             fk_id_usuario: userId  
+//             fk_id_categoria: categoria
 //         })
 
 //     } catch (error) {
 //         throw error
 //     }
 // }
+
 
 
 const deleteById = async (id) => {

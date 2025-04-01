@@ -9,7 +9,7 @@ const getUser = async (email, senha) => {
 
         const usuario = await Usuario.findOne({ where: { email: email.trim().toLowerCase() } })
 
-        
+        console.log("Nome de usuário: ", usuario.nome)
         console.log("Senha digitada no login:", senha);
         
         console.log("Senha armazenada no banco ao buscar:", usuario.senha);

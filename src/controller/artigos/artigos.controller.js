@@ -1,6 +1,7 @@
 const { STRING } = require('sequelize')
 const categoriaService = require('../../service/categorias.service')
 const artigoService = require('../../service/artigos.service')
+const usuarioService = require('../../service/usuarios.service')
 
 const getArtigos = async (req, res) => {
 
@@ -18,26 +19,32 @@ const getArtigos = async (req, res) => {
 
 const getAll = async (req, res) => {
     try {
-        const categorias = await categoriaService.getAll();
-        res.render('admin/novo_artigo', { categorias }) 
+        console.log('Usuário na sessão:', req.session.usuario)
+
+        const categorias = await categoriaService.getAll()
+        
+        res.render('admin/novo_artigo', { 
+            categorias, 
+            usuario: req.session.user || null
+        });
     } catch (error) {
         console.error('Erro ao obter categorias:', error)
         res.status(500).send('Erro interno no servidor')
     }
 }
 
+
 const createArtigo = async (req, res) => {
-    const { titulo, descricao, categorias } = req.body
+    const { titulo, descricao, categorias, usuarioId } = req.body
 
     try {
-        
         const buscaArtigo = await artigoService.getTitulo(titulo)
 
         if (buscaArtigo) {
             return res.status(409).render('error')
         }
 
-        const novoArtigo = await artigoService.createArtigo(titulo, descricao, categorias)
+        const novoArtigo = await artigoService.createArtigo(titulo, descricao, categorias, usuarioId)
 
         res.redirect('/admin/artigos')
 
@@ -46,9 +53,6 @@ const createArtigo = async (req, res) => {
         res.status(500).send('Erro interno no servidor')
     }
 }
-
-
-
 
 const deleteById = async (req, res) => {
 
