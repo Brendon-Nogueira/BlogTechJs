@@ -10,7 +10,10 @@ const Artigo = db.Artigo
 // rotas publicas homepage e about
 router.get('/', (req, res) => {
     Artigo.findAll({
-        include: [{ model: db.Categoria, as: 'categoria' }]
+        include: [
+            { model: db.Categoria, as: 'categoria' },
+            { model: db.Usuario, as: 'usuario', attibutes: ['nome'] } 
+        ]
     }).then(artigos => {
         res.render('index', { 
             artigos,
@@ -21,6 +24,7 @@ router.get('/', (req, res) => {
         res.status(500).send('Erro interno ao buscar artigos')
     })
 })
+
 
 
 router.get('/about', (req, res) => {
@@ -67,11 +71,6 @@ router.get('/usuarios', verificarToken, async (req, res) => {
         res.status(500).json({ error: "Erro ao buscar usuários" })
     }
 })
-
-
-
-
-
 
 
 module.exports = router

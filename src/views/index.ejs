@@ -4,7 +4,7 @@
 
     <div class="container mt-4">
         <div class="row">
-            <!-- Coluna lateral esquerda (opcional) -->
+            <!-- Coluna lateral esquerda (categorias) -->
             <div class="col-md-3 d-none d-md-block">
                 <div class="card p-3 shadow-sm">
                     <h5 class="text-muted">Categorias</h5>
@@ -22,24 +22,37 @@
                 <% artigos.forEach(artigo => { %>
                     <div class="card mb-3 shadow-sm">
                         <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="mb-2 gap-3">
+                                    <i class="fas fa-user-circle fa-2x"></i> 
+                                </div>                            
+                                <div class="mb-2 ml-2 gap-3">
+                                    <strong class="text-primary">
+                                        <%= artigo.usuario ? artigo.usuario.nome : 'Anônimo' %>
+                                    </strong>
+                                    <p class="text-muted small mb-0">
+                                        <%= new Date(artigo.createdAt).toLocaleDateString('pt-BR') %>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            
                             <h5 class="card-title"><%= artigo.titulo %></h5>
                             <p class="text-muted">Categoria: <%= artigo.categoria ? artigo.categoria.titulo : 'Sem categoria' %></p>
-                            <!-- <p class="card-text"><%= artigo.conteudo.substring(0, 200) %>...</p> -->
-                            <p class="card-text"><%- artigo.conteudo%></p> 
-                            <!-- <a href="/artigos/<%= artigo.slug %>" class="btn btn-primary btn-sm">Leia mais</a> -->
+                            <p class="card-text"><%- artigo.conteudo %></p>
                             
                             <!-- Botões de interação -->
-                            <div class="mt-3">
-                                <button class="btn btn-outline-primary btn-sm">Curtir</button>
-                                <button class="btn btn-outline-secondary btn-sm">Comentar</button>
-                                <button class="btn btn-outline-info btn-sm">Compartilhar</button>
+                            <div class="mt-3 d-flex gap-2">
+                                <button class="btn btn-outline-primary btn-sm"><i class="fa fa-thumbs-up"></i> Curtir</button>
+                                <button class="btn btn-outline-secondary btn-sm"><i class="fa fa-comment"></i> Comentar</button>
+                                <button class="btn btn-outline-info btn-sm"><i class="fa fa-share"></i> Compartilhar</button>
                             </div>
                         </div>
                     </div>
                 <% }) %>
             </div>
 
-           
+            <!-- Sugestões -->
             <div class="col-md-3 d-none d-md-block">
                 <div class="card p-3 shadow-sm">
                     <h5 class="text-muted">Sugestões para você</h5>

@@ -47,6 +47,9 @@ const createArtigo = async (req, res) => {
     }
 }
 
+
+
+
 const deleteById = async (req, res) => {
 
     const {id} = req.body

@@ -45,7 +45,7 @@ db.sequelize.authenticate()
     console.log("JWT Secret:", process.env.JWT_SECRET)
 
     
-    return db.sequelize.sync({ alter: true }) 
+    return db.sequelize.sync({}) //  alter: true
   })
   .then(() => {
     console.log('Tabelas sincronizadas com sucesso.')

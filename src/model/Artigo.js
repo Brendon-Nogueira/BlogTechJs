@@ -26,6 +26,13 @@ module.exports = (sequelize, DataTypes) => {
                 model: 'categorias',   
                 key: 'id'
             }
+        },
+        fk_id_usuario: {  
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'usuarios',  
+                key: 'id'
+            }
         }
     }, {
         tableName: 'artigos'  
@@ -35,6 +42,11 @@ module.exports = (sequelize, DataTypes) => {
         Artigo.belongsTo(models.Categoria, {  
             foreignKey: 'fk_id_categoria', 
             as: 'categoria'  
+        })
+
+        Artigo.belongsTo(models.Usuario, {  
+            foreignKey: 'fk_id_usuario', 
+            as: 'usuario'  
         })
     }
 

@@ -48,6 +48,27 @@ const createArtigo = async (titulo, descricao, categoria) => {
     }
 }
 
+// const createArtigo = async (titulo, descricao, categoria, userId) => {
+//     try {
+//         const slug = slugify(titulo, {
+//             lower: true,      
+//             strict: true     
+//         })
+
+//         return await db.Artigo.create({ 
+//             titulo: titulo, 
+//             slug: slug, 
+//             conteudo: descricao, 
+//             fk_id_categoria: categoria,
+//             fk_id_usuario: userId  
+//         })
+
+//     } catch (error) {
+//         throw error
+//     }
+// }
+
+
 const deleteById = async (id) => {
     try {
         const artigo = await db.Artigo.findByPk(id)
