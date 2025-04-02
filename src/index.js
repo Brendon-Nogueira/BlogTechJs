@@ -5,7 +5,6 @@ const session = require('express-session')
 const app = express()
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const authRoutes = require('./router/auth')
 const path = require('path')
 const db = require('./model') 
 const router = require('./router/index.router')
@@ -35,7 +34,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/', router)
-app.use('/auth', authRoutes) 
+
 
 
 // Autentica a conexão com o banco de dados

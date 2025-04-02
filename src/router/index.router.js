@@ -26,31 +26,30 @@ router.get('/', (req, res) => {
 })
 
 
-
 router.get('/about', (req, res) => {
     res.render('about')
 })
 
 
 // Rotas de categorias
-router.get('/admin/categorias/new', controllerCategorias.renderCategorias)
-router.get('/admin/categorias', controllerCategorias.getAll)
-router.post('/categorias/save', controllerCategorias.createTitulo)
-router.post('/categorias/update', controllerCategorias.updateTitulo)
+router.get('/admin/categorias', verificarToken ,controllerCategorias.getAll)
+router.get('/admin/categorias/new', verificarToken,controllerCategorias.renderCategorias)
+router.post('/categorias/save',controllerCategorias.createTitulo)
+router.post('/categorias/update',controllerCategorias.updateTitulo)
 router.post('/categorias/delete', controllerCategorias.deleteById)
-router.post('/categorias/delete/:id', controllerCategorias.deleteById)
-router.get('/admin/categorias/edit/:id', controllerCategorias.editById)
-router.post('/admin/categorias/edit/:id', controllerCategorias.editById)
+router.post('/categorias/delete/:id',verificarToken, controllerCategorias.deleteById)
+router.get('/admin/categorias/edit/:id', verificarToken,controllerCategorias.editById)
+router.post('/admin/categorias/edit/:id',controllerCategorias.editById)
 
 
 
 // Rotas de artigos
-router.get('/admin/artigos', controllerArtigos.getArtigos)
-router.get('/admin/artigos/new', controllerArtigos.getAll)
+router.get('/admin/artigos', verificarToken,controllerArtigos.getArtigos)
+router.get('/admin/artigos/new', verificarToken,controllerArtigos.getAll)
 router.post('/artigos/save', controllerArtigos.createArtigo)
 router.post('/artigos/delete', controllerArtigos.deleteById)
 router.post('/artigos/update', controllerArtigos.updateArtigo)
-router.get('/admin/artigos/edit/:id', controllerArtigos.editById)
+router.get('/admin/artigos/edit/:id', verificarToken,controllerArtigos.editById)
 
 
 // rotas de login
