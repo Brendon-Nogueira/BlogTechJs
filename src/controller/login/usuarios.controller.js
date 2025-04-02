@@ -7,7 +7,7 @@ const createUser = async (req, res) => {
     try {
         const resultado = await usuarioService.createUser(nome, email, senha)
 
-        console.log("Senha digitada:", senha)
+        //console.log("Senha digitada:", senha)
 
         if (resultado.error) {
 
@@ -65,10 +65,14 @@ const getUser = async (req, res) => {
             return res.render('login', { error: "Erro ao gerar autenticação." })
         }
 
+        console.log('token do usuario logado: ' + result.token)
+
         // Armazena o usuário na sessão
         req.session.user = {
             id: result.usuario.id,
-            email: result.usuario.email
+            email: result.usuario.email,
+            token: result.token
+          
         };
 
         res.redirect('/admin/artigos')

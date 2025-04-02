@@ -1,6 +1,13 @@
 <%- include('../partials/header.ejs') %>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    /* table td {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    } */
 
+</style>
 <body>
     <%- include('../partials/navbar.ejs') %>
     <div class="container mt-5">
@@ -28,14 +35,13 @@
                                     <td class="text-center"><%= artigo.slug %></td>
                                     <td class="text-center"><%= artigo.categoria.titulo %></td>
                                     <td class="text-center">
-                                        <form  style="display:inline;">
-                                            <a class="btn btn-warning btn-sm" href="/admin/artigos/edit/<%= artigo.id %>">Editar</a>
-                                        </form>
-                                       
-                                        <form onsubmit="return confirmarExclusao(event, <%= artigo.id %>)" style="display:inline;">
-                                            <input type="number" name="id" value="<%= artigo.id %>" class="d-none">
-                                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
-                                        </form>
+                                        <div class="d-flex justify-content-center">
+                                            <a class="btn btn-warning btn-sm mr-1" href="/admin/artigos/edit/<%= artigo.id %>">Editar</a>
+                                            <form onsubmit="return confirmarExclusao(event, <%= artigo.id %>)" style="display:inline;">
+                                                <input type="hidden" name="id" value="<%= artigo.id %>">
+                                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             <% }); %>

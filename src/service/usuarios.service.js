@@ -9,10 +9,9 @@ const getUser = async (email, senha) => {
 
         const usuario = await Usuario.findOne({ where: { email: email.trim().toLowerCase() } })
 
-        console.log("Nome de usuário: ", usuario.nome)
-        console.log("Senha digitada no login:", senha);
-        
-        console.log("Senha armazenada no banco ao buscar:", usuario.senha);
+        // console.log("Nome de usuário: ", usuario.nome)
+        // console.log("Senha digitada no login:", senha)
+        // console.log("Senha armazenada no banco ao buscar:", usuario.senha)
 
 
         if (!usuario) return { error: "Usuário não encontrado" }
@@ -21,9 +20,9 @@ const getUser = async (email, senha) => {
         
         
 
-        console.log("Senha digitada no login:", senha)
-        console.log("Senha armazenada no banco:", usuario.senha)
-        console.log("Resultado da comparação:", senhaValida)
+        // console.log("Senha digitada no login:", senha)
+        // console.log("Senha armazenada no banco:", usuario.senha)
+        // console.log("Resultado da comparação:", senhaValida)
 
 
         if (!senhaValida) return { error: "Senha incorreta" }
@@ -63,14 +62,14 @@ const createUser = async (nome, email, senha) => {
             { id: novoUsuario.id, email: novoUsuario.email },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
-        );
+        )
 
         return { usuario: novoUsuario, token }
     } catch (error) {
         console.error("Erro ao criar usuário:", error)
         return { error: "Erro interno no servidor" }
     }
-};
+}
 
 
 module.exports = {
