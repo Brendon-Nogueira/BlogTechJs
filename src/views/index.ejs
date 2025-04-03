@@ -44,8 +44,17 @@
                             <!-- Botões de interação -->
                             <div class="mt-3 d-flex gap-2">
                                 <button class="btn btn-outline-primary btn-sm"><i class="fa fa-thumbs-up"></i> Curtir</button>
-                                <button class="btn btn-outline-secondary btn-sm"><i class="fa fa-comment"></i> Comentar</button>
+                                <button class="btn btn-outline-secondary btn-sm btn-comentar" data-id="<%= artigo.id %>"><i class="fa fa-comment"></i> Comentar</button>
                                 <button class="btn btn-outline-info btn-sm"><i class="fa fa-share"></i> Compartilhar</button>
+                            </div>
+                            
+                            <!-- Bloco de comentários -->
+                            <div class="comentarios mt-3 d-none" id="comentarios-<%= artigo.id %>">
+                                <div class="card p-3">
+                                    <strong><%= artigo.usuario ? artigo.usuario.nome : 'Anônimo' %></strong>
+                                    <textarea class="form-control mt-2" placeholder="Escreva um comentário..."></textarea>
+                                    <button class="btn btn-sm btn-primary mt-2">Responder</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -62,6 +71,15 @@
             </div>
         </div>
     </div>
+    
     <script src="../../public/assets/plugins/jquery/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".btn-comentar").click(function() {
+                var id = $(this).data("id");
+                $("#comentarios-" + id).toggleClass("d-none");
+            });
+        });
+    </script>
     <%- include('partials/footer.ejs') %>
 </body>

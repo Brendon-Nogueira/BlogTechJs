@@ -62,7 +62,7 @@ router.post('/logout', controllerUsuarios.logout )
 
 
 // rota protegida para visualizar os usuários
-router.get('/usuarios', verificarToken, async (req, res) => {
+router.get('/admin/usuarios', verificarToken, async (req, res) => {
     try {
         const usuarios = await db.Usuario.findAll() 
         res.json(usuarios)
