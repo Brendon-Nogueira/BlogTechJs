@@ -2,7 +2,7 @@
 
 > Uma aplicação de blog desenvolvida com **Node.js, EJS e MySQL**, onde os usuários podem criar artigos organizados por categorias.
 >  É um projeto Web tradicional no padrão MVC
-> Com de praticar criação de rotas com Express, regra de negócio no model Sequelize ORM, gerenciamento de sessões com express-sesssion, autenticação JWT, Hashs de senhas etc...
+> Com intenção de praticar funcionalidades que  **Node.js** proporciona como criação de rotas com Express, regra de negócio no model Sequelize ORM, gerenciamento de sessões com express-sesssion, autenticação JWT, Hashs de senhas etc...
 
 ## 📌 Tecnologias Utilizadas
 
